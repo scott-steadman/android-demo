@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Phone Browser</string>
+    
+    <string name="activity_list_title">Browse</string>
+    
+    <string name="icon_list_activity_name">Icon List</string>
+    <string name="icon_list_title">Icons</string>
+    
+    <string name="sensor_list_activity_name">Sensor List</string>
+    <string name="sensor_list_title">Sensors</string>
+    
+</resources>
