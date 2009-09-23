@@ -12,12 +12,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".SensorListActivity"
-      		android:label="@string/sensor_list_activity_name"
-      	/>
+      	  android:label="@string/sensor_list_activity_name"
+        />
         <activity android:name=".IconListActivity"
-      		android:label="@string/icon_list_activity_name"
-      	/>
-
+      	  android:label="@string/icon_list_activity_name"
+    	/>
     </application>
     <uses-sdk android:minSdkVersion="3" />
 

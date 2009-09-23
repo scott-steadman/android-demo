@@ -2,16 +2,21 @@ package com.se.browser;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class BrowserActivity extends ListActivity {
   
-  class ActivityAdapter extends ArrayAdapter<Class> {
+  class ActivityAdapter extends ArrayAdapter<Intent> {
 
     class ViewHolder {
       public TextView activityName;
@@ -23,8 +28,8 @@ public class BrowserActivity extends ListActivity {
     }
     
     private void populateList() {
-      add(IconListActivity.class);
-      add(SensorListActivity.class);
+      add(new Intent(getContext(), IconListActivity.class));
+      add(new Intent(getContext(), SensorListActivity.class));
     }
 
     @Override
@@ -40,8 +45,13 @@ public class BrowserActivity extends ListActivity {
         holder = (ViewHolder) convertView.getTag();
       }
 
-      Class item = getItem(position);
-      holder.activityName.setText(item.getName());
+      Intent item = getItem(position);
+      try {
+        ActivityInfo info = getPackageManager().getActivityInfo(item.getComponent(), PackageManager.GET_META_DATA);
+        holder.activityName.setText(info.labelRes);
+      } catch (NameNotFoundException e) {
+        holder.activityName.setText(item.getComponent().getClassName());
+      }
 
       return convertView;
     }
@@ -62,5 +72,10 @@ public class BrowserActivity extends ListActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.browser_activity);
     setListAdapter(new ActivityAdapter(this));
+  }
+  
+  @Override
+  protected void onListItemClick(ListView l, View v, int position, long id) {
+    this.startActivity((Intent)getListAdapter().getItem(position));
   }
 }
